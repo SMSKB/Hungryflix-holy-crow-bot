@@ -1,0 +1,245 @@
+body {
+    background-image: url('movies-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.hungryflix-page-logo {
+    /* --- Logo Size Adjustment --- */
+    max-height: 120px;  /* Adjust this value as needed (e.g., 100px, 150px) */
+    width: auto;
+    max-width: 80%; /* Or a fixed pixel width like max-width: 400px; */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 500px;
+    height: 70vh;
+    max-height: 600px;
+    background-color: #2c2c2c;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(211, 47, 47, 0.5),
+                0 0 30px rgba(211, 47, 47, 0.3),
+                0 0 45px rgba(170, 31, 31, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 2px solid #d32f2f;
+    animation: pulseGlow 3s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 15px rgba(211, 47, 47, 0.5),
+                    0 0 30px rgba(211, 47, 47, 0.3),
+                    0 0 45px rgba(170, 31, 31, 0.2);
+        border-color: #d32f2f;
+    }
+    100% {
+        box-shadow: 0 0 25px rgba(211, 47, 47, 0.7),
+                    0 0 50px rgba(211, 47, 47, 0.4),
+                    0 0 75px rgba(170, 31, 31, 0.3);
+        border-color: #ff4c4c;
+    }
+}
+
+.chat-header {
+    background-color: #d32f2f;
+    color: #ffffff;
+    padding: 12px 20px;
+    text-align: center;
+    border-bottom: 3px solid #a71f1f;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.header-bot-avatar {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #a71f1f;
+}
+
+.chat-header h1 {
+    margin: 0;
+    font-size: 1.3em;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.message {
+    display: flex; /* This makes children flex items, so 'order' works */
+    align-items: flex-end;
+    max-width: 85%;
+    word-wrap: break-word;
+}
+
+.message p {
+    padding: 12px 18px;
+    border-radius: 20px;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 0.95em;
+    position: relative;
+}
+
+.message .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid #555;
+}
+
+/* --- Bot Message: Avatar (Left, order 1), Text (Right, order 2) --- */
+.bot-message .avatar {
+    border-color: #d32f2f;
+    margin-right: 12px; /* Space between avatar and text */
+    order: 1; /* Visually first */
+}
+.bot-message p {
+    background-color: #3e3e3e;
+    color: #e0e0e0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    order: 2; /* Visually second */
+}
+
+/* --- User Message: Text (Left, order 1), Avatar (Right, order 2) --- */
+.user-message {
+    align-self: flex-end; /* Message container to the right */
+    /* flex-direction: row-reverse; --- REMOVED --- We use 'order' now */
+}
+
+.user-message p { /* User's text bubble */
+    background-color: #c84a4a;
+    color: #ffffff;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    order: 1; /* Visually first (left) */
+    margin-right: 12px; /* Space between text and avatar */
+}
+
+.user-message .avatar { /* User's avatar */
+    border-color: #777;
+    /* margin-left: 12px; --- REMOVED --- Handled by p's margin-right */
+    order: 2; /* Visually second (right) */
+}
+
+
+.bot-message.bot-loading p {
+    font-style: italic;
+    color: #aaa;
+    background-color: #333;
+}
+
+
+.chat-input-area {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #444;
+    background-color: #1f1f1f;
+    flex-shrink: 0;
+}
+
+#userInput {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border: 1px solid #555;
+    border-radius: 25px;
+    background-color: #333;
+    color: #e0e0e0;
+    font-size: 1em;
+    margin-right: 10px;
+    outline: none;
+}
+
+#userInput:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 8px rgba(211, 47, 47, 0.6);
+}
+
+#sendButton {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+#sendButton:hover {
+    background-color: #a71f1f;
+}
+#sendButton:active {
+    background-color: #8b1919;
+    transform: scale(0.95);
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 10px;
+}
+.chat-messages::-webkit-scrollbar-track {
+    background: #2c2c2c;
+    border-radius: 10px;
+}
+.chat-messages::-webkit-scrollbar-thumb {
+    background-color: #d32f2f;
+    border-radius: 10px;
+    border: 2px solid #2c2c2c;
+}
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background-color: #a71f1f;
+}
